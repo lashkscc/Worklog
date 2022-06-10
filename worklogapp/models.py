@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Status(models.Model):
     statusName=models.CharField(max_length=255)
     statusDescription=models.CharField(max_length=255)
-    statusPosition=models.IntegerField
+    statusPosition=models.IntegerField()
 
     def __str__(self):
         return self.statusName
