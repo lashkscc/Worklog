@@ -8,4 +8,8 @@ urlpatterns = [
     path('inprogress',views.inprogress, name='inprogress'),
     path('done',views.done, name='done'),
     path('task/<int:id>',views.task, name='task'),
+    path('loginmessage/', views.loginmessage, name='loginmessage'),
+    path('logoutmessage/', views.logoutmessage, name='logoutmessage'),
+    path('newtask/', views.newtask, name='newtask'),
+    
 ]
