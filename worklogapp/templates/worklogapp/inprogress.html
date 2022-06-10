@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>In progress</h2>
+These are in progress
+<ul>
+    {% for m in task_list %}
+        <li> {{ m.taskName }} </li>
+        {% endfor %}
+</ul>
+{% endblock %}

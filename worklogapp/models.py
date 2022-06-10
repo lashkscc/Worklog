@@ -12,6 +12,7 @@ class Status(models.Model):
 
     class Meta:
         db_table='status'
+        verbose_name_plural='statuses'
 
 class Task(models.Model):
     taskName=models.CharField(max_length=255)

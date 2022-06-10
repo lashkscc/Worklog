@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Task</h2>
+This is our todos
+
+<br/>
+Task : {{ task.taskName }}<br/>
+Description : {{ task.taskDescription }}<br/>
+Created by : {{ task.taskUserCreated }}<br/>
+Date created : {{ task.taskDateCreated }}<br/>
+Deadline : {{ task.taskDeadline }}<br/>
+{% comment %} Task : {{ task.taskName }}<br/> {% endcomment %}
+
+<ul>
+    {% for c in taskcomments %}
+        <li> {{ c.taskCommentDescription }} </li>
+        <li> {{ c.taskUserCreated }} </li>        
+        {% endfor %}
+</ul>
+{% endblock %}
