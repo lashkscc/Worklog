@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 class Status(models.Model):
     statusName=models.CharField(max_length=255)
     statusDescription=models.CharField(max_length=255)
-    statusPosition=models.IntegerField()
 
     def __str__(self):
         return self.statusName
@@ -18,7 +17,7 @@ class Task(models.Model):
     taskName=models.CharField(max_length=255)
     taskDescription=models.CharField(max_length=255)
     taskUserCreated= models.ForeignKey(User, on_delete=models.CASCADE)
-    taskDateCreated=models.DateField()
+    taskDateCreated=models.DateField(auto_now=True)
     taskDeadline=models.DateField(blank=True)
     taskStatus=models.ForeignKey(Status, on_delete=models.DO_NOTHING)
 
@@ -33,7 +32,7 @@ class TaskComment(models.Model):
     taskid=models.ForeignKey(Task, on_delete=models.CASCADE)
     taskCommentDescription=models.CharField(max_length=255)
     taskUserCreated= models.ForeignKey(User, on_delete=models.CASCADE)
-    taskDateCreated=models.DateField()
+    taskDateCreated=models.DateField(auto_now=True)
     def __str__(self):
         return self.taskid.taskName
     

@@ -1,6 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Status, Task, TaskComment
 from .forms import TaskForm, TaskCommentForm
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index (request):
@@ -30,7 +32,11 @@ def loginmessage(request):
 def logoutmessage(request):
     return render(request, 'worklogapp/logoutmessage.html')
 
+@login_required
 def newtask(request):
+    if not request.user.is_authenticated:
+        return redirect("/registation/login")
+
     form = TaskForm
 
     if request.method=='POST':
@@ -44,16 +50,19 @@ def newtask(request):
         form=TaskForm
     return render(request, 'worklogapp/newtask.html', {'form': form})
 
-def newcomment(request):
-    form = TaskCommentForm
+@login_required
+def newcomment(request, id):
+    if not request.user.is_authenticated:
+        return redirect("/registation/login")
+    taskinstance = get_object_or_404(Task, pk=id)
 
     if request.method=='POST':
         form=TaskCommentForm(request.POST)
         if form.is_valid():
-            post=form.save(commit=True)
-            post.save()
-            form=TaskCommentForm()
-
+            form.instance.taskUserCreated = request.user
+            form.instance.taskid=taskinstance
+            form.save()
+            return redirect('task', id=id)
     else:
         form=TaskCommentForm()
-    return render(request, 'worklogapp/newtask.html', {'form': form})    
+    return render(request, 'worklogapp/newcomment.html', {'form': form})    
