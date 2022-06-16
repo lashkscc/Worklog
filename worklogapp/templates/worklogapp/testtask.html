@@ -9,7 +9,8 @@ Created by : {{ task.taskUserCreated }}<br/>
 Date created : {{ task.taskDateCreated }}<br/>
 Deadline : {{ task.taskDeadline }}<br/>
 
-<form action="{% url 'task' id=task.id %}" method='POST'>{% csrf_token %}
+
+<form action="{% url 'testtask' id=task.id %}" method='POST'>{% csrf_token %}
     {{ form.as_p }}
     <input type='submit' value='Update Task'/>
 </form>

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Status, Task, TaskComment
-from .forms import TaskForm, TaskCommentForm
+from .forms import TaskForm, TaskCommentForm, TaskStatusForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
@@ -22,9 +22,25 @@ def done (request):
     return render(request, 'worklogapp/done.html', {'task_list': task_list})
 
 def task (request, id):
-    tasktarget = get_object_or_404(Task, pk=id)
-    taskcomments = TaskComment.objects.filter(taskid=tasktarget.id)
-    return render(request, 'worklogapp/task.html', {'task': tasktarget, 'taskcomments': taskcomments})
+    task = Task.objects.get(id=id)
+    taskcomments = TaskComment.objects.filter(taskid=task.id)
+    form = TaskStatusForm(instance=task)
+
+    if request.method == 'POST':
+        form = TaskStatusForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('task', id=id)
+
+    context = {
+        'task': task,
+        'taskcomments': taskcomments,
+        'form':form,
+        'id':id
+    }
+
+    return render(request, 'worklogapp/task.html', context)
+
 
 def loginmessage(request):
     return render(request, 'worklogapp/loginmessage.html')
@@ -54,6 +70,8 @@ def newtask(request):
 def newcomment(request, id):
     if not request.user.is_authenticated:
         return redirect("/registation/login")
+
+
     taskinstance = get_object_or_404(Task, pk=id)
 
     if request.method=='POST':
@@ -66,3 +84,37 @@ def newcomment(request, id):
     else:
         form=TaskCommentForm()
     return render(request, 'worklogapp/newcomment.html', {'form': form})    
+
+# def updateStatus(request, id):
+
+#     ttask = Task.objects.get(id=id)
+#     form = TaskForm(instance=ttask)
+
+#     if request.method == 'POST':
+#         form = TaskForm(request.Post,instance=ttask)
+#         if form.isvalid():
+#             form.save()
+#             return redirect('task', id=id)
+
+#     context = {'form':form}
+#     return render(request, 'worklogapp/task.html', context)
+
+# def testtask (request, id):
+#     ttask = Task.objects.get(id=id)
+#     taskcomments = TaskComment.objects.filter(taskid=ttask.id)
+#     form = TaskStatusForm(instance=ttask)
+
+#     if request.method == 'POST':
+#         form = TaskStatusForm(request.POST, instance=ttask)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('testtask', id=id)
+
+#     context = {
+#         'task': ttask,
+#         'taskcomments': taskcomments,
+#         'form':form,
+#         'id':id
+#     }
+
+#     return render(request, 'worklogapp/testtask.html', context)

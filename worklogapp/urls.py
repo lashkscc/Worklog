@@ -12,4 +12,5 @@ urlpatterns = [
     path('logoutmessage/', views.logoutmessage, name='logoutmessage'),
     path('newtask/', views.newtask, name='newtask'),
     path('newcomment/<int:id>', views.newcomment, name='newcomment'),
+    # path('testtask/<int:id>',views.testtask, name='testtask'),
 ]
