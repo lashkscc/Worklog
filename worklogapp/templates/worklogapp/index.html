@@ -3,4 +3,23 @@
 <h2>Worklog </h2>
 <p> Hello </p>
 <p>This application will offer a space for the our IT 112 group to document work and tasks</p>
+
+
+<ul>
+    {% for m in todo_list %}
+        <li> <a href="{% url 'task' id=m.id %}"> {{ m.taskName }} </a> </li>
+        {% endfor %}
+</ul>
+<br/>
+<ul>
+    {% for m in inprogress_list %}
+        <li> <a href="{% url 'task' id=m.id %}"> {{ m.taskName }} </a> </li>
+        {% endfor %}
+</ul>
+<br/>
+<ul>
+    {% for m in done_list %}
+        <li> <a href="{% url 'task' id=m.id %}"> {{ m.taskName }} </a> </li>
+        {% endfor %}
+</ul>
 {% endblock %}

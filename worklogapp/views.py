@@ -6,7 +6,16 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index (request):
-    return render(request, 'worklogapp/index.html')
+    todo_list = Task.objects.filter(taskStatus = 1)    
+    inprogress_list = Task.objects.filter(taskStatus = 2)
+    done_list = Task.objects.filter(taskStatus = 3)
+
+    context = {
+        'todo_list': todo_list,
+        'inprogress_list': inprogress_list,
+        'done_list': done_list,
+    }
+    return render(request, 'worklogapp/index.html', context)
 
 def todo (request):
     # status = get_object_or_404(Status, pk=1)
