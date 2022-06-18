@@ -14,10 +14,11 @@ Deadline : {{ task.taskDeadline }}<br/>
     <input type='submit' value='Update Task'/>
 </form>
 
+<br>
+<h3> Comments </h3>
 <ul>
     {% for c in taskcomments %}
-        <li> {{ c.taskCommentDescription }} </li>
-        <li> {{ c.taskUserCreated }} </li>        
+        <li> {{ c.taskCommentDescription }} - Posted by:  {{ c.taskUserCreated }} </li>      
         {% endfor %}
 </ul>
 <br/>

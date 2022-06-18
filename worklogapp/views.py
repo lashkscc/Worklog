@@ -14,6 +14,7 @@ def index (request):
         'todo_list': todo_list,
         'inprogress_list': inprogress_list,
         'done_list': done_list,
+        'range': max(len(todo_list), len(inprogress_list), len(done_list)),
     }
     return render(request, 'worklogapp/index.html', context)
 

@@ -1,25 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Worklog </h2>
-<p> Hello </p>
-<p>This application will offer a space for the our IT 112 group to document work and tasks</p>
+<h2>Worklog application</h2>
+<p>This application works to document and organize all tasks related to the final project for IT112!</p>
 
-
-<ul>
-    {% for m in todo_list %}
-        <li> <a href="{% url 'task' id=m.id %}"> {{ m.taskName }} </a> </li>
-        {% endfor %}
-</ul>
-<br/>
-<ul>
-    {% for m in inprogress_list %}
-        <li> <a href="{% url 'task' id=m.id %}"> {{ m.taskName }} </a> </li>
-        {% endfor %}
-</ul>
-<br/>
-<ul>
-    {% for m in done_list %}
-        <li> <a href="{% url 'task' id=m.id %}"> {{ m.taskName }} </a> </li>
-        {% endfor %}
-</ul>
 {% endblock %}
